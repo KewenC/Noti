@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kewenc.noti">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/mySplash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.CreateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AmendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SingleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ActivationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UseActivity"
+            android:screenOrientation="portrait" />
+        <!-- 闹铃广播 -->
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.kewenc.noti.action.repeating" />
+            </intent-filter>
+        </receiver>
+        <!-- 闹铃广播 -->
+        <service
+            android:name=".service.NotificationService"
+            android:enabled="true"
+            android:exported="true"
+            android:persistent="true"
+            android:priority="1000" />
+        <service
+            android:name=".service.AssistService"
+            android:enabled="true"
+            android:exported="true"
+            android:persistent="true" />
+        <!-- MTA -->
+        <meta-data
+            android:name="TA_APPKEY"
+            android:value="Aqc1105794797" />
+        <meta-data
+            android:name="InstallChannel"
+            android:value="play" />
+        <!-- MTA -->
+        <!-- AD -->
+        <service
+            android:name="com.qq.e.comm.DownloadService"
+            android:exported="false" />
+        <activity
+            android:name="com.qq.e.ads.ADActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <!-- AD -->
+    </application>
+
+</manifest>

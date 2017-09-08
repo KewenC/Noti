@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">通知栏背单词</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="word">英文单词</string>
+    <string name="marken">英式音标</string>
+    <string name="markus">美式音标</string>
+    <string name="translate">单词意思</string>
+    <string name="title_activity_test">test</string>
+    <string name="exit_program_main">再按一次退出程序</string>
+    <string name="q0">1、如遇常驻通知栏的单词异常消失？</string>
+    <string name="a0">请将应用加入白名单或者允许后台运行，防止通知进程在用户执行手机加速时被杀掉。</string>
+    <string name="q1">2、为什么新建时查询单词一直在加载？</string>
+    <string name="a1">查询单词时是需要连接网络的，请确保网络正常畅通。</string>
+    <string name="q2">3、为什么通知栏没显示？</string>
+    <string name="a2">请确保应用已经获取通知权限，可以在应用管理里设置。</string>
+    <string name="q3">4、如何创建“我的”词库？入口在哪？</string>
+    <string name="a3">在“我的”界面下，再次点击导航栏“我的”即可进入“创建单词”界面。</string>
+    <string name="q4">5、在词库界面下，如何切换其他词库？</string>
+    <string name="a4">在“词库”界面下，再次点击导航栏“词库”即可打开切换对话框。</string>
+    <string name="q5">6、如何去除广告？</string>
+    <string name="a5">设置 > 去除广告 > 获取激活码（右上角菜单）> 购买。
+    \n或者直接在淘宝上搜素店铺“kewenc”，进入店铺里购买。</string>
+    <string name="q6">7、本地词库情况：</string>
+    <string name="a6">四级词库共含4590个单词\n六级词库共含2089个单词
+        \n考研词库共含5492个单词\n雅思词库共含7930个单词</string>
+    <string name="reset">
+        使用说明：\n此码仅用于用户重新安装应用，充当去除广告码，恢复应用激活状态。\n
+        \n使用场景：\n用户刷机双清数据,卸载重装应用,用户清除应用数据等。\n
+        \n使用期限：\n对于同一设备，可永久重复使用此码。\n
+        \n注意事项：\n1、不支持换机激活，仅限于同一设备。\n2、操作前请备份好此码，以免丢失。\n3、如需换机激活，请重新购买。谢谢您的使用！</string>
+</resources>

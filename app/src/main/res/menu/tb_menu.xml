@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016-2017.
+  ~ KewenC 版权所有
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/tb" app:showAsAction="ifRoom" android:title="获取激活码" android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha">
+        <menu>
+            <group android:id="@+id/group">
+                <item android:id="@+id/tb_shop" android:title="获取激活码"></item>
+            </group>
+        </menu>
+    </item>
+</menu>

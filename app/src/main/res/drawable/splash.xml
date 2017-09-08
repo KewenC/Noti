@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016-2017.
+  ~ KewenC 版权所有
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@color/colorPrimaryDark"></item>
+    <item >
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/mysplash"></bitmap>
+    </item>
+</layer-list>
