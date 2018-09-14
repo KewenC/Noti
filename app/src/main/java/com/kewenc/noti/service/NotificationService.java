@@ -7,6 +7,7 @@ package com.kewenc.noti.service;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -21,6 +22,9 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.widget.RemoteViews;
+
 import com.kewenc.noti.R;
 import com.kewenc.noti.dao.DataBaseManager;
 import com.kewenc.noti.dao.DataBaseOpenHelper;
@@ -81,29 +85,68 @@ public class NotificationService extends Service {
      * 开启通知栏信息
      */
     private void OpenNoti() {
-        Intent intent_next=new Intent(this, AssistService.class);//待处理。。。
-        PendingIntent pendingIntent=PendingIntent.getService(this,0,intent_next,0);
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(this)
-                .setTicker(word+" "+translate)
-                .setContentTitle(word)
-                .setContentText(translate)
-                .setSmallIcon(R.drawable.ticket)
-                .setLargeIcon(bitmap)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(translate))//多行文本通知
+        NotificationCompat.Builder builder;
+        String mChannelId = "channelId";
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel mChannel = new NotificationChannel(mChannelId, "noti", importance);
+            if (manager != null)
+                manager.createNotificationChannel(mChannel);
+        }
+        builder = new NotificationCompat.Builder(this, mChannelId);
+
+        RemoteViews viewsDefault = new RemoteViews(getPackageName(), R.layout.notification_default);
+        viewsDefault.setTextViewText(R.id.tvWord, word);
+//        viewsDefault.setTextViewText(R.id.tvMark, );
+        viewsDefault.setTextViewText(R.id.tvTranslate, translate);
+
+        RemoteViews viewsLarge = new RemoteViews(getPackageName(), R.layout.notification_large);
+        viewsLarge.setTextViewText(R.id.tvWord, word);
+//        viewsLarge.setTextViewText(R.id.tvMark, );
+        viewsLarge.setTextViewText(R.id.tvTranslate, translate);
+
+        builder.setCustomContentView(viewsDefault);
+        builder.setCustomBigContentView(viewsLarge);
+
+        builder.setSmallIcon(R.drawable.ticket)
                 .setShowWhen(false)
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setPriority(NotificationCompat.PRIORITY_MAX)//通知优先级
-                .setContentIntent(pendingIntent);
-        builder.addAction(R.drawable.noti_next,"",pendingIntent);
+                .setPriority(NotificationCompat.PRIORITY_MAX);//通知优先级
+
         Notification notification=builder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR;//表示正在运行的服务
 //        notification.flags=Notification.FLAG_ONGOING_EVENT;
 //        notification.flags=Notification.FLAG_FOREGROUND_SERVICE;
-        NotificationManager nm=(NotificationManager)this.getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(5,notification);
-//        startForeground(5,notification);
-        stopSelf();
+        startForeground(5, notification);
+
+
+
+//        Intent intent_next=new Intent(this, AssistService.class);//待处理。。。
+//        PendingIntent pendingIntent=PendingIntent.getService(this,0,intent_next,0);
+//        NotificationCompat.Builder builder=new NotificationCompat.Builder(this)
+//                .setTicker(word+" "+translate)
+//                .setContentTitle(word)
+//                .setContentText(translate)
+//                .setSmallIcon(R.drawable.ticket)
+//                .setLargeIcon(bitmap)
+//                .setStyle(new NotificationCompat.BigTextStyle().bigText(translate))//多行文本通知
+//                .setShowWhen(false)
+//                .setAutoCancel(false)
+//                .setOngoing(true)
+//                .setPriority(NotificationCompat.PRIORITY_MAX)//通知优先级
+//                .setContentIntent(pendingIntent);
+//        builder.addAction(R.drawable.noti_next,"",pendingIntent);
+//        Notification notification=builder.build();
+//        notification.flags |= Notification.FLAG_NO_CLEAR;//表示正在运行的服务
+////        notification.flags=Notification.FLAG_ONGOING_EVENT;
+////        notification.flags=Notification.FLAG_FOREGROUND_SERVICE;
+//        NotificationManager nm=(NotificationManager)this.getSystemService(NOTIFICATION_SERVICE);
+//        nm.notify(5,notification);
+////        startForeground(5,notification);
+//        stopSelf();
     }
 
     /**

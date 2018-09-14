@@ -23,7 +23,7 @@ import com.kewenc.noti.R;
 import com.kewenc.noti.dao.MeDAO;
 import com.kewenc.noti.receiver.AlarmReceiver;
 
-public class AssistService extends Service {
+public class  AssistService extends Service {
     private SharedPreferences sp;
     private boolean isLast=true;
     public AssistService() {
