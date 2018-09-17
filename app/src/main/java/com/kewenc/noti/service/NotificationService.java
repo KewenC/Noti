@@ -18,6 +18,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -26,16 +32,21 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.widget.RemoteViews;
 
 import com.kewenc.noti.R;
+import com.kewenc.noti.activity.MainActivity;
 import com.kewenc.noti.dao.DataBaseManager;
 import com.kewenc.noti.dao.DataBaseOpenHelper;
 import com.kewenc.noti.receiver.AlarmReceiver;
+import com.kewenc.noti.util.DrawableUtil;
+
+import java.lang.reflect.Field;
 
 public class NotificationService extends Service {
     private SharedPreferences sp;
-    private static final long TEN_MINUTE_Mill=300000;//定时时间间隔常量
-    private String word="Notification";
-    private String translate="n. 通知；通告；[法] 告示";
-    private int listview_position=0;
+    private static final long TEN_MINUTE_Mill = 300000;//定时时间间隔常量
+    private String word = "Notification";
+    private String mark = "[,nəʊtɪfɪ'keɪʃn]";
+    private String translate = "n. 通知；通告；[法] 告示";
+    private int listview_position = 0;
     private Bitmap bitmap;
     public NotificationService() {
     }
@@ -67,6 +78,7 @@ public class NotificationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {//每次 start service 都会调用
         word="Notification";
         translate="n. 通知；通告；[法] 告示";
+        mark = "[,nəʊtɪfɪ'keɪʃn]";
         listview_position=0;
         sp=this.getSharedPreferences("NOTI_DATA", Activity.MODE_PRIVATE);
         int access_flag=sp.getInt("ACCESS_FLAG",0);
@@ -96,27 +108,41 @@ public class NotificationService extends Service {
                 manager.createNotificationChannel(mChannel);
         }
         builder = new NotificationCompat.Builder(this, mChannelId);
-
+        //公用
+        Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        PendingIntent mainPendingIntent = PendingIntent.getActivity(this, 0, mainActivityIntent,0);
+        //常规布局设置
         RemoteViews viewsDefault = new RemoteViews(getPackageName(), R.layout.notification_default);
+        viewsDefault.setInt(R.id.rlRoot, "setBackgroundColor", getResources().getColor(R.color.colorPrimary));
         viewsDefault.setTextViewText(R.id.tvWord, word);
-//        viewsDefault.setTextViewText(R.id.tvMark, );
+        viewsDefault.setTextViewText(R.id.tvMark, mark);
         viewsDefault.setTextViewText(R.id.tvTranslate, translate);
-
+        viewsDefault.setOnClickPendingIntent(R.id.rlRoot, mainPendingIntent);
+        //大布局设置
         RemoteViews viewsLarge = new RemoteViews(getPackageName(), R.layout.notification_large);
+        viewsLarge.setInt(R.id.rlRoot, "setBackgroundColor", getResources().getColor(R.color.colorPrimary));
+//        Drawable tmp = DrawableUtil.getDrawable(this,Color.parseColor("#FFFF00"), 12);
+//        GradientDrawable gradientDrawable = (GradientDrawable) tmp;
+//        BitmapDrawable bd = (BitmapDrawable) tmp;
+//        Bitmap bitmap = bd.getBitmap();
+//        viewsLarge.setImageViewBitmap(R.id.imgBg,drawableToBitmap(tmp));
         viewsLarge.setTextViewText(R.id.tvWord, word);
-//        viewsLarge.setTextViewText(R.id.tvMark, );
+        viewsLarge.setTextViewText(R.id.tvMark, mark);
         viewsLarge.setTextViewText(R.id.tvTranslate, translate);
+        Intent nextIntent = new Intent(this, AssistService.class);//待处理。。。
+        PendingIntent pendingIntent=PendingIntent.getService(this,0,nextIntent,0);
+        viewsLarge.setOnClickPendingIntent(R.id.imgNext, pendingIntent);
+        viewsLarge.setOnClickPendingIntent(R.id.rlRoot, mainPendingIntent);
 
         builder.setCustomContentView(viewsDefault);
         builder.setCustomBigContentView(viewsLarge);
-
         builder.setSmallIcon(R.drawable.ticket)
                 .setShowWhen(false)
                 .setAutoCancel(false)
                 .setOngoing(true)
                 .setPriority(NotificationCompat.PRIORITY_MAX);//通知优先级
 
-        Notification notification=builder.build();
+        Notification notification = builder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR;//表示正在运行的服务
 //        notification.flags=Notification.FLAG_ONGOING_EVENT;
 //        notification.flags=Notification.FLAG_FOREGROUND_SERVICE;
@@ -148,6 +174,26 @@ public class NotificationService extends Service {
 ////        startForeground(5,notification);
 //        stopSelf();
     }
+
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        // 取 drawable 的长宽
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+
+        // 取 drawable 的颜色格式
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                : Bitmap.Config.RGB_565;
+        // 建立对应 bitmap
+        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+        // 建立对应 bitmap 的画布
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        // 把 drawable 内容画到画布中
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
 
     /**
      * 获得我的信息
@@ -183,18 +229,18 @@ public class NotificationService extends Service {
                         }
                         if (!tmp_en.equals("")){
                             if (!tmp_us.equals("")){
-                                tmp="英 "+tmp_en+"  美 "+tmp_us+"\n";
+                                tmp = tmp_en+" "+tmp_us;
                             }else{
-                                tmp="英 "+tmp_en+"\n";
+                                tmp = tmp_en;
                             }
                         }else{
                             if (!tmp_us.equals("")){
-                                tmp="美 "+tmp_us+"\n";
+                                tmp = tmp_us;
                             }else{
-
                             }
                         }
-                        translate = tmp+cur.getString(cur.getColumnIndex("translate"));
+                        mark = tmp;
+                        translate = cur.getString(cur.getColumnIndex("translate"));
                         listview_position=flag;
                     }
                     flag++;
@@ -241,18 +287,18 @@ public class NotificationService extends Service {
                         }
                         if (!tmp_en.equals("")){
                             if (!tmp_us.equals("")){
-                                tmp="英 "+tmp_en+"  美 "+tmp_us+"\n";
+                                tmp = tmp_en+" "+tmp_us;
                             }else{
-                                tmp="英 "+tmp_en+"\n";
+                                tmp = tmp_en;
                             }
                         }else{
                             if (!tmp_us.equals("")){
-                                tmp="美 "+tmp_us+"\n";
+                                tmp = tmp_us;
                             }else{
-
                             }
                         }
-                        translate = tmp+cur.getString(cur.getColumnIndex("translate"));
+                        mark = tmp;
+                        translate = cur.getString(cur.getColumnIndex("translate"));
                         listview_position=flag;
                     }
                     flag++;
@@ -299,18 +345,18 @@ public class NotificationService extends Service {
                         }
                         if (!tmp_en.equals("")){
                             if (!tmp_us.equals("")){
-                                tmp="英 "+tmp_en+"  美 "+tmp_us+"\n";
+                                tmp = tmp_en+" "+tmp_us;
                             }else{
-                                tmp="英 "+tmp_en+"\n";
+                                tmp = tmp_en;
                             }
                         }else{
                             if (!tmp_us.equals("")){
-                                tmp="美 "+tmp_us+"\n";
+                                tmp = tmp_us;
                             }else{
-
                             }
                         }
-                        translate = tmp+cur.getString(cur.getColumnIndex("translate"));
+                        mark = tmp;
+                        translate = cur.getString(cur.getColumnIndex("translate"));
                         listview_position=flag;
                     }
                     flag++;
@@ -357,18 +403,18 @@ public class NotificationService extends Service {
                         }
                         if (!tmp_en.equals("")){
                             if (!tmp_us.equals("")){
-                                tmp="英 "+tmp_en+"  美 "+tmp_us+"\n";
+                                tmp = tmp_en+" "+tmp_us;
                             }else{
-                                tmp="英 "+tmp_en+"\n";
+                                tmp = tmp_en;
                             }
                         }else{
                             if (!tmp_us.equals("")){
-                                tmp="美 "+tmp_us+"\n";
+                                tmp = tmp_us;
                             }else{
-
                             }
                         }
-                        translate = tmp+cur.getString(cur.getColumnIndex("translate"));
+                        mark = tmp;
+                        translate = cur.getString(cur.getColumnIndex("translate"));
                         listview_position=flag;
                     }
                     flag++;
@@ -415,18 +461,18 @@ public class NotificationService extends Service {
                         }
                         if (!tmp_en.equals("")){
                             if (!tmp_us.equals("")){
-                                tmp="英 "+tmp_en+"  美 "+tmp_us+"\n";
+                                tmp = tmp_en+" "+tmp_us;
                             }else{
-                                tmp="英 "+tmp_en+"\n";
+                                tmp = tmp_en;
                             }
                         }else{
                             if (!tmp_us.equals("")){
-                                tmp="美 "+tmp_us+"\n";
+                                tmp = tmp_us;
                             }else{
-
                             }
                         }
-                        translate = tmp+cur.getString(cur.getColumnIndex("translate"));
+                        mark = tmp;
+                        translate = cur.getString(cur.getColumnIndex("translate"));
                         listview_position=flag;
                     }
                     flag++;
