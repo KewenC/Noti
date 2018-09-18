@@ -6,13 +6,18 @@
 package com.kewenc.noti.Fragment;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +25,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.kewenc.noti.R;
 import com.kewenc.noti.activity.ActivationActivity;
 import com.kewenc.noti.activity.UseActivity;
+import com.kewenc.noti.receiver.AlarmReceiver;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 
@@ -31,7 +41,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_SP;
  */
 public class SettingsFragment extends Fragment implements View.OnClickListener{
     private RelativeLayout rl_num;
-    private TextView tv_num,tv_grade,tv_share,tv_about;
+    private TextView tv_num,tv_grade,tv_share,tv_about, tv_clear_noti;
     private SharedPreferences sp;
     private AlertDialog.Builder mBuilder;
     private String num[]={"只显示英式音标","只显示美式音标","同时显示英美式","不显示音标"};
@@ -50,11 +60,13 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         tv_grade=(TextView)view.findViewById(R.id.tv_grade);
         tv_share=(TextView)view.findViewById(R.id.tv_share);
         tv_about=(TextView)view.findViewById(R.id.tv_about);
+        tv_clear_noti=(TextView)view.findViewById(R.id.tv_clear_noti);
         tv_num.setText(num[sp.getInt("SETTING_NUM",2)]);//音标选取初始化
         tv_grade.setOnClickListener(this);
         rl_num.setOnClickListener(this);
         tv_share.setOnClickListener(this);
         tv_about.setOnClickListener(this);
+        tv_clear_noti.setOnClickListener(this);
         return view;
 //        Log.i("_NotiF","b");
 ////        TelephonyManager tm = (TelephonyManager) getContext().getSystemService(TELEPHONY_SERVICE);
@@ -80,7 +92,28 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
             case R.id.tv_about:
                 About();
                 break;
+            case R.id.tv_clear_noti:
+                ClearNoti();
+                break;
         }
+    }
+
+    /**
+     * 清除通知栏
+     */
+    private void ClearNoti() {
+        NotificationManager nm = (NotificationManager)getContext().getSystemService(NOTIFICATION_SERVICE);
+        if (nm != null){
+            nm.cancelAll();
+        }
+        AlarmManager alarm=(AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        if(alarm!=null) {//取消闹铃
+            Intent intent=new Intent(getContext(), AlarmReceiver.class);
+            intent.setAction("com.kewenc.noti.action.repeating");
+            PendingIntent sender=PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarm.cancel(sender);
+        }
+        Toast.makeText(getContext(),"通知栏单词已清除！",Toast.LENGTH_SHORT).show();
     }
 
     /**

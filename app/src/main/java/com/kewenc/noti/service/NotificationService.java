@@ -146,8 +146,11 @@ public class NotificationService extends Service {
         notification.flags |= Notification.FLAG_NO_CLEAR;//表示正在运行的服务
 //        notification.flags=Notification.FLAG_ONGOING_EVENT;
 //        notification.flags=Notification.FLAG_FOREGROUND_SERVICE;
-        startForeground(5, notification);
 
+//        startForeground(5, notification);
+//
+        manager.notify(5,notification);
+        stopSelf();
 
 
 //        Intent intent_next=new Intent(this, AssistService.class);//待处理。。。

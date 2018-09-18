@@ -28,17 +28,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp">
-                <Button
-                    android:id="@+id/btn_cleanall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="清除通知"
-                    android:background="#0000"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_blue"/>
+                <!--<Button-->
+                    <!--android:id="@+id/btn_cleanall"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="清除通知"-->
+                    <!--android:background="#0000"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textColor="@color/color_blue"/>-->
                 <TextView
                     android:id="@+id/tv_impress"
-                    android:layout_below="@+id/btn_cleanall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -49,7 +48,7 @@
                     android:layout_below="@+id/tv_impress"
                     android:id="@+id/adcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></RelativeLayout>
+                    android:layout_height="wrap_content"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

@@ -50,7 +50,7 @@
                     android:layout_below="@+id/tv_impress"
                     android:id="@+id/adcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></RelativeLayout>
+                    android:layout_height="wrap_content"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

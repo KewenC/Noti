@@ -35,6 +35,8 @@ import com.kewenc.noti.service.NotificationService;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
+
+import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,8 +78,8 @@ public class NotiFragment extends Fragment implements View.OnClickListener{
         }
         tv_flag=(TextView)view.findViewById(R.id.tv_impress);//正在通知词库
         tv_flag.setText(mFlag[sp.getInt("ACCESS_FLAG",0)]);
-        Button btn_cleanAll=(Button)view.findViewById(R.id.btn_cleanall);//清除通知
-        btn_cleanAll.setOnClickListener(this);
+//        Button btn_cleanAll=(Button)view.findViewById(R.id.btn_cleanall);//清除通知
+//        btn_cleanAll.setOnClickListener(this);
         lv_noti=(OverListView)view.findViewById(R.id.lv_noti);
         loadData=new LoadData();
         loadData.execute();
@@ -155,22 +157,79 @@ public class NotiFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        int id=v.getId();
-        switch (id){
-            case R.id.btn_cleanall://清除通知按钮
-                NotificationManager nm=(NotificationManager)getContext().getSystemService(NOTIFICATION_SERVICE);
-                nm.cancelAll();
-                AlarmManager alarm=(AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                if(alarm!=null) {//取消闹铃
-                    Intent intent=new Intent(getContext(), AlarmReceiver.class);
-                    intent.setAction("com.kewenc.noti.action.repeating");
-                    PendingIntent sender=PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    alarm.cancel(sender);
-                }
-                Toast.makeText(getContext(),"通知栏单词已清除！",Toast.LENGTH_SHORT).show();
-                break;
-        }
+//        int id=v.getId();
+//        switch (id){
+//            case R.id.btn_cleanall://清除通知按钮
+//                NotificationManager nm=(NotificationManager)getContext().getSystemService(NOTIFICATION_SERVICE);
+//                nm.cancelAll();
+//                AlarmManager alarm=(AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+//                if(alarm!=null) {//取消闹铃
+//                    Intent intent=new Intent(getContext(), AlarmReceiver.class);
+//                    intent.setAction("com.kewenc.noti.action.repeating");
+//                    PendingIntent sender=PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                    alarm.cancel(sender);
+//                }
+//                Toast.makeText(getContext(),"通知栏单词已清除！",Toast.LENGTH_SHORT).show();
+//
+////                expandNotification(getActivity());
+//                break;
+//        }
     }
+
+//    /**
+//     * 折叠通知栏
+//     *
+//     * @param context
+//     */
+//    public static void collapsingNotification(Context context) {
+//        Object service = context.getSystemService("statusbar");
+//        if (null == service)
+//            return;
+//        try {
+//            Class<?> clazz = Class.forName("android.app.StatusBarManager");
+//            int sdkVersion = android.os.Build.VERSION.SDK_INT;
+//            Method collapse = null;
+//            if (sdkVersion <= 16) {
+//                collapse = clazz.getDeclaredMethod("collapse");
+//            } else {
+//                collapse = clazz.getDeclaredMethod("collapsePanels");
+//            }
+//            collapse.setAccessible(true);
+//            collapse.invoke(service);
+//        } catch (Exception e) {
+////       //e.printStackTrace();
+//        }
+//    }
+//
+//    /**
+//     * 展开通知栏
+//     * @param context
+//     */
+//    public static void expandNotification(Context context) {
+//        Object service = context.getSystemService("statusbar");
+//        if (null == service)
+//            return;
+//        try {
+//            Class<?> clazz = Class.forName("android.app.StatusBarManager");
+//            int sdkVersion = android.os.Build.VERSION.SDK_INT;
+//            Method expand = null;
+//            if (sdkVersion <= 16) {
+//                expand = clazz.getDeclaredMethod("expand");
+//            } else {
+//                /*
+//                 * Android SDK 16之后的版本展开通知栏有两个接口可以处理
+//                 * expandNotificationsPanel()
+//                 * expandSettingsPanel()
+//                 */
+//                //expand =clazz.getMethod("expandNotificationsPanel");
+//                expand = clazz.getDeclaredMethod("expandSettingsPanel");
+//            }
+//            expand.setAccessible(true);
+//            expand.invoke(service);
+//        } catch (Exception e) {
+////       //e.printStackTrace();
+//        }
+//    }
 
     private class LvOnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
