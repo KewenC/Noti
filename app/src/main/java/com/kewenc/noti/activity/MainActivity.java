@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -36,10 +37,10 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
-    private static CardView cv_main;//导航
-    private static Boolean isExit=false;
-    private static final int[] icon={R.drawable.nav_noti,R.drawable.nav_ciku,R.drawable.nav_me,R.drawable.nav_setting};
-    private static final String[] FLAG={"四级","六级","考研","雅思"};
+    private static RelativeLayout cv_main;//导航
+    private static Boolean isExit = false;
+    private static final int[] icon = {R.drawable.nav_noti,R.drawable.nav_ciku,R.drawable.nav_me,R.drawable.nav_setting};
+    private static final String[] FLAG = {"四级","六级","考研","雅思"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 dataBaseManager.openIeltsDatabase();
             }
         }).start();
-        cv_main=(CardView)findViewById(R.id.cv_main);
+        cv_main = findViewById(R.id.cv_main);
         BottomNavigationBar btnBar=(BottomNavigationBar)findViewById(R.id.bomnbar);
         SelectNavigation(0);//初始化导航栏
         btnBar  .addItem(new BottomNavigationItem(icon[0],"通知").setActiveColor(R.color.colorPrimaryDark))
