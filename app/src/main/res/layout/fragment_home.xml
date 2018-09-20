@@ -22,7 +22,7 @@
                 android:text="四级"
                 android:textColor="#fff"
                 android:layout_gravity="center"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <FrameLayout

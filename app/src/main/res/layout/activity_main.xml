@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#70FFFFFF"
-        android:minHeight="50dp">
+        android:minHeight="40dp">
         <ImageView
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
@@ -33,13 +33,20 @@
         android:layout_below="@+id/rl"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"/>
     <RelativeLayout
         android:id="@+id/cv_main"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="#e3e3e3"/>
         <com.ashokvarma.bottomnavigation.BottomNavigationBar
+            android:layout_below="@+id/line"
             android:id="@+id/bomnbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

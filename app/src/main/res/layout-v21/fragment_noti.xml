@@ -10,6 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.kewenc.noti.Fragment.NotiFragment">
     <android.support.design.widget.AppBarLayout
+        android:visibility="gone"
         android:id="@+id/abl0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,8 +54,102 @@
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvCurrentData"
         android:layout_below="@+id/abl0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="2dp"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="false">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:src="@mipmap/ic_launcher"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:text="四级"/>
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_margin="2dp"
+                    android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="?android:attr/listDivider"/>
+            <TextView
+                android:id="@+id/tv_word_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/tv_mark_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="英 [həˈləʊ]  美 [həˈlo]"/>
+            <TextView
+                android:id="@+id/tv_meaning_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="n. 表示问候， 惊奇或唤起注意时的用语\nn. (Hello)人名；(法)埃洛\nint. 喂；哈罗"/>
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp">
+                <Button
+                    android:background="@drawable/touch"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="上一个"
+                    android:textSize="10sp"/>
+                <Button
+                    android:background="@drawable/touch"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="收藏"
+                    android:textSize="10sp"/>
+                <Button
+                    android:background="@drawable/touch"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="下一个"
+                    android:textSize="10sp"/>
+            </android.support.v7.widget.ButtonBarLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_below="@+id/cvCurrentData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
