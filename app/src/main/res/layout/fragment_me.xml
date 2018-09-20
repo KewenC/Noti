@@ -4,26 +4,25 @@
     android:layout_height="match_parent"
     tools:context="com.kewenc.noti.Fragment.MeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/abl_me"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的"
-                android:textColor="#fff"
-                android:layout_gravity="center"
-                android:textSize="16sp"/>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+    <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:id="@+id/abl_me"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="我的"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textSize="16sp"/>-->
+        <!--</android.support.v7.widget.Toolbar>-->
+    <!--</android.support.design.widget.AppBarLayout>-->
     <com.kewenc.noti.dao.OverListView
         android:paddingTop="8dp"
-        android:layout_below="@+id/abl_me"
         android:id="@+id/lv_me"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
