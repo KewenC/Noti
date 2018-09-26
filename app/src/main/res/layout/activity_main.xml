@@ -8,11 +8,14 @@
     android:background="@color/colorPrimary">
     <RelativeLayout
         android:id="@+id/rl"
-        android:layout_margin="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#70FFFFFF"
-        android:minHeight="40dp">
+        android:background="@drawable/bg_search"
+        android:minHeight="35dp">
         <ImageView
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
