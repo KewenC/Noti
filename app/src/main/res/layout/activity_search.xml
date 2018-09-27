@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kewenc.noti.activity.MainActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".activity.SearchActivity">
     <RelativeLayout
         android:id="@+id/rlSearch"
         android:layout_marginLeft="16dp"
@@ -20,40 +20,31 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:id="@+id/imgSearch"
+            android:id="@+id/imgBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_search"/>
+            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"/>
         <TextView
+            android:layout_toLeftOf="@+id/imgSearch"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/imgSearch"
+            android:layout_toEndOf="@+id/imgBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="查询单词"
             android:textSize="16sp"/>
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_search"/>
     </RelativeLayout>
-    <FrameLayout
+    <TextView
         android:layout_below="@+id/rlSearch"
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"/>
-    <RelativeLayout
-        android:id="@+id/cv_main"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="#e3e3e3"/>
-        <com.ashokvarma.bottomnavigation.BottomNavigationBar
-            android:layout_below="@+id/line"
-            android:id="@+id/bomnbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
 </RelativeLayout>
-
-    <!--FitWindowsFrameLayout-->

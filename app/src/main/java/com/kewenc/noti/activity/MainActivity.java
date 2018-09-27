@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -73,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .initialise();
         btnBar.setTabSelectedListener(new BNBARTabSelectedListener());
+        findViewById(R.id.rlSearch).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+            }
+        });
     }
 
     /**
