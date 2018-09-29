@@ -63,6 +63,8 @@ public class DataBaseManager {
                     case 3:
                         is = this.context.getResources().openRawResource(R.raw.ielts); // 欲导入的数据库
                         break;
+                    case 4:
+                        is = this.context.getResources().openRawResource(R.raw.noti);
                 }
                 FileOutputStream fos = new FileOutputStream(dbfile);
                 byte[] buffer = new byte[BUFFER_SIZE];
@@ -83,5 +85,9 @@ public class DataBaseManager {
             e.printStackTrace();
 //        return null;
         }
+    }
+
+    public void openNativeDatabase() {
+        openDatabase(DB_PATH+"/"+"databases"+"/"+"noti.db",4);
     }
 }

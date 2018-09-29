@@ -32,6 +32,7 @@ import com.kewenc.noti.R;
 import com.kewenc.noti.dao.DataBaseManager;
 import com.kewenc.noti.Fragment.MeFragment;
 import com.kewenc.noti.Fragment.SettingsFragment;
+import com.kewenc.noti.dao.DataBaseOpenHelper;
 import com.tencent.stat.StatService;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -57,15 +58,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 DataBaseManager dataBaseManager=new DataBaseManager(getApplicationContext());
-                dataBaseManager.openCet4Database();
-                dataBaseManager.openCet6Database();
-                dataBaseManager.openTeefpsDatabase();
-                dataBaseManager.openIeltsDatabase();
+//                dataBaseManager.openCet4Database();
+//                dataBaseManager.openCet6Database();
+//                dataBaseManager.openTeefpsDatabase();
+//                dataBaseManager.openIeltsDatabase();
+                dataBaseManager.openNativeDatabase();
+                DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(MainActivity.this);
+                dataBaseOpenHelper.getWritableDatabase();
             }
         }).start();
         cv_main = findViewById(R.id.cv_main);
         BottomNavigationBar btnBar=(BottomNavigationBar)findViewById(R.id.bomnbar);
-        SelectNavigation(0);//初始化导航栏
+//        SelectNavigation(0);//初始化导航栏
         btnBar  .addItem(new BottomNavigationItem(icon[0],"通知").setActiveColor(R.color.colorPrimaryDark))
                 .addItem(new BottomNavigationItem(icon[1],"词库").setActiveColor(R.color.color_green))
                 .addItem(new BottomNavigationItem(icon[2],"我的").setActiveColor(R.color.color_blue))
