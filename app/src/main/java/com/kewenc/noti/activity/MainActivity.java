@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 DataBaseManager dataBaseManager=new DataBaseManager(getApplicationContext());
+                dataBaseManager.openNativeDatabase();
 //                dataBaseManager.openCet4Database();
 //                dataBaseManager.openCet6Database();
 //                dataBaseManager.openTeefpsDatabase();
 //                dataBaseManager.openIeltsDatabase();
-                dataBaseManager.openNativeDatabase();
-                DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(MainActivity.this);
-                dataBaseOpenHelper.getWritableDatabase();
+//                DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(MainActivity.this);
+//                dataBaseOpenHelper.getWritableDatabase();
             }
         }).start();
         cv_main = findViewById(R.id.cv_main);

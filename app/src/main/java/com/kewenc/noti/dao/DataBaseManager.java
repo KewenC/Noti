@@ -20,10 +20,14 @@ public class DataBaseManager {
     public static final String CET6_DBNAME = "cet6.db";
     public static final String TEEFPS_DBNAME = "teefps.db";
     public static final String IELTS_DBNAME = "ielts.db";
-    public static final String PACKAGE_NAME = "com.kewenc.noti";
+
+    public static final String NOTI_DBNAME = "noti.db";
+
+     public static final String PACKAGE_NAME = "com.kewenc.noti";
     public static final String DB_PATH = "/data" + Environment.getDataDirectory().getAbsolutePath() + "/" + PACKAGE_NAME; // 在手机里存放数据库的位置
 //    private SQLiteDatabase database;
     private Context context;
+    public String nativePath;
 
     public DataBaseManager(Context context) {
         this.context = context;
@@ -46,9 +50,17 @@ public class DataBaseManager {
         openDatabase(DB_PATH + "/" + IELTS_DBNAME, 3);
     }
 
-    private void openDatabase(String dbfile, int flag) {
+    /**
+     * 加载本地数据库
+     */
+    public void openNativeDatabase() {
+        nativePath = "/data" + Environment.getDataDirectory().getAbsolutePath() + "/"+ context.getPackageName() +"/"+"databases"+"/"+NOTI_DBNAME;
+        openDatabase(nativePath,4);
+    }
+
+    private void openDatabase(String dbFile, int flag) {
         try {
-            if (!(new File(dbfile).exists())) {// 判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
+            if (!(new File(dbFile).exists())) {// 判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
                 InputStream is = null;
                 switch (flag) {
                     case 0:
@@ -66,7 +78,7 @@ public class DataBaseManager {
                     case 4:
                         is = this.context.getResources().openRawResource(R.raw.noti);
                 }
-                FileOutputStream fos = new FileOutputStream(dbfile);
+                FileOutputStream fos = new FileOutputStream(dbFile);
                 byte[] buffer = new byte[BUFFER_SIZE];
                 int count;
                 while ((count = is.read(buffer)) > 0) {
@@ -87,7 +99,4 @@ public class DataBaseManager {
         }
     }
 
-    public void openNativeDatabase() {
-        openDatabase(DB_PATH+"/"+"databases"+"/"+"noti.db",4);
-    }
 }

@@ -9,6 +9,7 @@ import android.util.Log;
  * Created by KewenC on 2016/12/29.
  */
 
+@Deprecated
 public class DataBaseOpenHelper extends SQLiteOpenHelper{
     private static final int VESAION=3;
     private static final String DBNAME="noti.db";
