@@ -20,7 +20,6 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.e("TAGF","GGGGGGGGGGGGGGGGG");
         db.execSQL("create table tb_me(id INTEGER primary key,word CHAR(50),marken CHAR(50),markus CHAR(50),translate CHAR(200))");
 
     }

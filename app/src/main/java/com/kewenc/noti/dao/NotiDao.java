@@ -1,16 +1,19 @@
 package com.kewenc.noti.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.kewenc.noti.model.CollectModel;
 import com.kewenc.noti.model.DefaultModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class NotiDao {
+    public static final int KEY_FLAG_MARK_EN_PATH = 0;
+    public static final int KEY_FLAG_MARK_US_PATH = 1;
+    public static final int KEY_FLAG_COLLECT = 2;
+    public static final int KEY_FLAG_FALG = 3;
 
     public static final int FLAG_CET4 = 0;
     public static final int FLAG_CET6 = 1;
@@ -31,7 +34,77 @@ public class NotiDao {
     }
 
     /**
+     * 增
+     *
+     * 适用范围： 仅CollectModel
+     * @param collectModel
+     * @return
+     */
+    public int insert(CollectModel collectModel){
+        ContentValues values = new ContentValues();
+        values.put("name", collectModel.getWord());
+        values.put("name", collectModel.getMarken());
+        values.put("name", collectModel.getMarkus());
+        values.put("name", collectModel.getTranslate());
+        values.put("name", collectModel.getMarkenpath());
+        values.put("name", collectModel.getMarkuspath());
+        values.put("name", collectModel.getFlag());
+        long id = db.insert(TABLE_NAME_COLLECT, "0", values);
+        if (db != null)
+            db.close();
+        return (int) id;
+    }
+
+    /**
+     * 删
+     *
+     * 适用范围： 仅CollectModel
+     * @param id
+     * @return
+     */
+    public boolean delete(int id){
+        int result = db.delete(TABLE_NAME_COLLECT, "id = ?", new String[]{String.valueOf(id)});
+        if (db != null)
+            db.close();
+        return result>0;
+    }
+
+    /**
+     * 改
+     *
+     * 适用范围： CollectModel 和 DefaultModel
+     * @param flag
+     * @param id
+     * @param newStrValue
+     * @param keyFlag
+     * @return
+     */
+    public boolean update(int flag, int id, String newStrValue, int keyFlag){
+        ContentValues values = new ContentValues();
+        switch (keyFlag){
+            case KEY_FLAG_MARK_EN_PATH:
+                values.put("markenpath", newStrValue);
+                break;
+            case KEY_FLAG_MARK_US_PATH:
+                values.put("markuspath", newStrValue);
+                break;
+            case KEY_FLAG_COLLECT:
+                values.put("collect", newStrValue.equals("true"));//boolean
+                break;
+            case KEY_FLAG_FALG:
+                values.put("flag", Integer.parseInt(newStrValue));//int
+                break;
+        }
+        int result = db.update(TABLES_NAME[flag], values, "id=?", new String[]{String.valueOf(id)});
+        if (db != null)
+            db.close();
+        return result>0;
+    }
+
+    /**
      * 查
+     *
+     * 适用范围： CollectModel 和 DefaultModel
      * @param flag
      * @return
      */
