@@ -1,6 +1,6 @@
 package com.kewenc.noti.model;
 
-public class DefaultModel extends E{
+public class DefaultModel {
     private int id;//存储编号
     private String word;
     private String marken;

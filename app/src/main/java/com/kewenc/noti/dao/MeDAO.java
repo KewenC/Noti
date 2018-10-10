@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by KewenC on 2016/12/29.
  */
-
+@Deprecated
 public class MeDAO{
     private DataBaseOpenHelper helper;//创建DBOpenHelper对象
     private SQLiteDatabase db;//SQLiteDatabase对象

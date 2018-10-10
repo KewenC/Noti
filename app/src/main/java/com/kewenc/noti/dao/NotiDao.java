@@ -36,13 +36,33 @@ public class NotiDao {
      * @return
      */
     public List query(int flag){
+        Cursor c = db.query(TABLES_NAME[flag], null, null, null, null, null, null);
         if (flag == FLAG_COLLECT){
             List<CollectModel> collectModels = new ArrayList<CollectModel>();
-
+            if(c != null) {
+                CollectModel collectModel = null;
+                while(c.moveToNext()){
+                    collectModel = new CollectModel();
+                    collectModel.setId(c.getInt(c.getColumnIndex("id")));
+                    collectModel.setWord(c.getString(c.getColumnIndex("word")));
+                    collectModel.setMarken(c.getString(c.getColumnIndex("marken")));
+                    collectModel.setMarkus(c.getString(c.getColumnIndex("markus")));
+                    collectModel.setTranslate(c.getString(c.getColumnIndex("translate")));
+                    collectModel.setMarkenpath(c.getString(c.getColumnIndex("markenpath")));
+                    collectModel.setMarkuspath(c.getString(c.getColumnIndex("markuspath")));
+                    collectModel.setFlag(c.getInt(c.getColumnIndex("flag")));
+                    collectModels.add(collectModel);
+                }
+                if (c != null){
+                    c.close();
+                    c = null;
+                }
+            }
+            if (db != null)
+                db.close();
             return collectModels;
         } else {
             List<DefaultModel> defaultModels = new ArrayList<DefaultModel>();
-            Cursor c = db.query(TABLES_NAME[flag], null, null, null, null, null, null);
             if(c != null) {
                 DefaultModel defaultModel = null;
                 while(c.moveToNext()){
@@ -55,7 +75,7 @@ public class NotiDao {
                     defaultModel.setMarkenpath(c.getString(c.getColumnIndex("markenpath")));
                     defaultModel.setMarkuspath(c.getString(c.getColumnIndex("markuspath")));
                     defaultModel.setSort(c.getInt(c.getColumnIndex("sort")));
-                    defaultModel.setCollect(c.getInt(c.getColumnIndex("collect")));
+                    defaultModel.setCollect(c.getString(c.getColumnIndex("collect")).equals("true"));
                     defaultModels.add(defaultModel);
                 }
                 if (c != null){
