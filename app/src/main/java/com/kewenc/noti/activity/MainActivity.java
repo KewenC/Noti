@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
         cv_main = findViewById(R.id.cv_main);
-        BottomNavigationBar btnBar=(BottomNavigationBar)findViewById(R.id.bomnbar);
-//        SelectNavigation(0);//初始化导航栏
+        BottomNavigationBar btnBar = findViewById(R.id.bomnbar);
+        SelectNavigation(0);//初始化导航栏
         btnBar  .addItem(new BottomNavigationItem(icon[0],"通知").setActiveColor(R.color.colorPrimaryDark))
                 .addItem(new BottomNavigationItem(icon[1],"词库").setActiveColor(R.color.color_green))
                 .addItem(new BottomNavigationItem(icon[2],"我的").setActiveColor(R.color.color_blue))
@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
         final FragmentManager fragmentManager=getSupportFragmentManager();
         switch (position){
             case 0:
-                NotiFragment notiFragment=new NotiFragment();
-                fragmentTransaction=fragmentManager.beginTransaction();
+                NotiFragment notiFragment = new NotiFragment();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container,notiFragment);
                 fragmentTransaction.commit();
                 break;

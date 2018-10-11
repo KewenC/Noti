@@ -4,10 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
+
 import com.kewenc.noti.model.CollectModel;
 import com.kewenc.noti.model.DefaultModel;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.kewenc.noti.dao.DataBaseManager.NOTI_DBNAME;
 
 public class NotiDao {
     public static final int KEY_FLAG_MARK_EN_PATH = 0;
@@ -30,7 +34,18 @@ public class NotiDao {
     private SQLiteDatabase db;
 
     public NotiDao(Context context){
-        db = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH, null);
+        db = SQLiteDatabase.openOrCreateDatabase("/data" + Environment.getDataDirectory().getAbsolutePath() + "/"+ context.getPackageName() +"/"+"databases"+"/"+NOTI_DBNAME, null);
+    }
+
+    public Cursor getCursor(int flag){
+        return db.query(TABLES_NAME[flag], null, "id=?", null, null, null, null);
+    }
+
+    public void closeDb(){
+        if (db != null){
+            db.close();
+            db = null;
+        }
     }
 
     /**
@@ -160,5 +175,22 @@ public class NotiDao {
                 db.close();
             return defaultModels;
         }
+    }
+
+    /**
+     * 获取 表collect 的总记录数
+     * @return 总记录数
+     */
+    public long getCount() {
+        Cursor cursor = db.rawQuery("select count(id) from "+TABLE_NAME_COLLECT, null);
+        if(cursor.moveToNext()) {
+            long count = cursor.getLong(0);
+            cursor.close();
+            db.close();
+            return count;//返回总记录数
+        }
+        cursor.close();
+        db.close();
+        return 0;
     }
 }

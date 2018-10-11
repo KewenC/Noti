@@ -35,6 +35,7 @@ import com.kewenc.noti.R;
 import com.kewenc.noti.activity.MainActivity;
 import com.kewenc.noti.dao.DataBaseManager;
 import com.kewenc.noti.dao.DataBaseOpenHelper;
+import com.kewenc.noti.dao.NotiDao;
 import com.kewenc.noti.receiver.AlarmReceiver;
 import com.kewenc.noti.util.DrawableUtil;
 
@@ -203,9 +204,11 @@ public class NotificationService extends Service {
      */
     private void GetMe() {
         bitmap= BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher);
-        DataBaseOpenHelper helper=new DataBaseOpenHelper(getApplicationContext());//初始化DBOpenHelper对象
-        SQLiteDatabase db=helper.getWritableDatabase();//初始化SQLiteDatabase对象
-        Cursor cur=db.rawQuery("select id,word,marken,markus,translate from tb_me where id=id", null);//存储到Cursor类中
+//        DataBaseOpenHelper helper=new DataBaseOpenHelper(getApplicationContext());//初始化DBOpenHelper对象
+//        SQLiteDatabase db=helper.getWritableDatabase();//初始化SQLiteDatabase对象
+//        Cursor cur=db.rawQuery("select id,word,marken,markus,translate from tb_me where id=id", null);//存储到Cursor类中
+        NotiDao notiDao = new NotiDao(getApplicationContext());
+        Cursor cur = notiDao.getCursor(NotiDao.FLAG_COLLECT);
         int flag=0;
         int tmp_num=sp.getInt("SETTING_NUM",0);
         if (cur != null) {
@@ -250,10 +253,12 @@ public class NotificationService extends Service {
                 } while (cur.moveToNext());
             }
             cur.close();
-            db.close();
+//            db.close();
+            notiDao.closeDb();
         } else {
             cur.close();
-            db.close();
+//            db.close();
+            notiDao.closeDb();
         }
     }
 
@@ -262,8 +267,10 @@ public class NotificationService extends Service {
      */
     private void GetIelts() {
         bitmap= BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher);
-        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.IELTS_DBNAME, null);
-        Cursor cur = database.rawQuery("select id,word,marken,markus,translate from ielts where id=id", null);
+//        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.IELTS_DBNAME, null);
+//        Cursor cur = database.rawQuery("select id,word,marken,markus,translate from ielts where id=id", null);
+        NotiDao notiDao = new NotiDao(getApplicationContext());
+        Cursor cur = notiDao.getCursor(NotiDao.FLAG_IELTS);
         int flag=0;
         int tmp_num=sp.getInt("SETTING_NUM",0);
         if (cur != null) {
@@ -308,10 +315,12 @@ public class NotificationService extends Service {
                 } while (cur.moveToNext());
             }
             cur.close();
-            database.close();
+//            database.close();
+            notiDao.closeDb();
         } else {
             cur.close();
-            database.close();
+//            database.close();
+            notiDao.closeDb();
         }
     }
 
@@ -320,8 +329,10 @@ public class NotificationService extends Service {
      */
     private void GetCet6() {
         bitmap= BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher);
-        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.CET6_DBNAME, null);
-        Cursor cur = database.rawQuery("select id,word,marken,markus,translate from cet6 where id=id", null);
+//        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.CET6_DBNAME, null);
+//        Cursor cur = database.rawQuery("select id,word,marken,markus,translate from cet6 where id=id", null);
+        NotiDao notiDao = new NotiDao(getApplicationContext());
+        Cursor cur = notiDao.getCursor(NotiDao.FLAG_CET6);
         int flag=0;
         int tmp_num=sp.getInt("SETTING_NUM",0);
         if (cur != null) {
@@ -366,10 +377,12 @@ public class NotificationService extends Service {
                 } while (cur.moveToNext());
             }
             cur.close();
-            database.close();
+//            database.close();
+            notiDao.closeDb();
         } else {
             cur.close();
-            database.close();
+//            database.close();
+            notiDao.closeDb();
         }
     }
 
@@ -378,8 +391,10 @@ public class NotificationService extends Service {
      */
     private void GetCet4() {
         bitmap= BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher);
-        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.CET4_DBNAME, null);
-        Cursor cur = database.rawQuery("select id,word,marken,markus,translate from cet4 where id=id", null);
+//        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.CET4_DBNAME, null);
+//        Cursor cur = database.rawQuery("select id,word,marken,markus,translate from cet4 where id=id", null);
+        NotiDao notiDao = new NotiDao(getApplicationContext());
+        Cursor cur = notiDao.getCursor(NotiDao.FLAG_CET4);
         int flag=0;
         int tmp_num=sp.getInt("SETTING_NUM",0);
         if (cur != null) {
@@ -424,10 +439,12 @@ public class NotificationService extends Service {
                 } while (cur.moveToNext());
             }
             cur.close();
-            database.close();
+//            database.close();
+            notiDao.closeDb();
         } else {
             cur.close();
-            database.close();
+//            database.close();
+            notiDao.closeDb();
         }
     }
 
@@ -436,8 +453,10 @@ public class NotificationService extends Service {
      */
     private void GetTeefps() {
         bitmap= BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher);
-        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.TEEFPS_DBNAME, null);
-        Cursor cur = database.rawQuery("select id,word,marken,markus,translate from teefps where id=id", null);
+//        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.TEEFPS_DBNAME, null);
+//        Cursor cur = database.rawQuery("select id,word,marken,markus,translate from teefps where id=id", null);
+        NotiDao notiDao = new NotiDao(getApplicationContext());
+        Cursor cur = notiDao.getCursor(NotiDao.FLAG_TEEFPS);
         int flag=0;
         int tmp_num=sp.getInt("SETTING_NUM",0);
         if (cur != null) {
@@ -482,10 +501,12 @@ public class NotificationService extends Service {
                 } while (cur.moveToNext());
             }
             cur.close();
-            database.close();
+//            database.close();
+            notiDao.closeDb();
         } else {
             cur.close();
-            database.close();
+//            database.close();
+            notiDao.closeDb();
         }
     }
 

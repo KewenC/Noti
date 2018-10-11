@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.kewenc.noti.R;
 import com.kewenc.noti.dao.MeDAO;
+import com.kewenc.noti.dao.NotiDao;
 import com.kewenc.noti.dao.OverListView;
 import com.kewenc.noti.dao.OverOnTouchListener;
 import com.kewenc.noti.receiver.AlarmReceiver;
@@ -68,7 +69,7 @@ public class NotiFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_noti, container, false);
         getContext().startService(new Intent(getContext(),NotificationService.class));//打开默认通知单词
-        sp=getContext().getSharedPreferences("NOTI_DATA", Activity.MODE_PRIVATE);
+        sp = getContext().getSharedPreferences("NOTI_DATA", Activity.MODE_PRIVATE);
         if (!sp.getBoolean("NOTI_AD",false)){
             //AD
             bannerContainer = (ViewGroup)view.findViewById(R.id.adcontent);
@@ -80,8 +81,8 @@ public class NotiFragment extends Fragment implements View.OnClickListener{
         tv_flag.setText(mFlag[sp.getInt("ACCESS_FLAG",0)]);
 //        Button btn_cleanAll=(Button)view.findViewById(R.id.btn_cleanall);//清除通知
 //        btn_cleanAll.setOnClickListener(this);
-        lv_noti=(OverListView)view.findViewById(R.id.lv_noti);
-        loadData=new LoadData();
+        lv_noti = view.findViewById(R.id.lv_noti);
+        loadData = new LoadData();
         loadData.execute();
         return view;
     }
@@ -139,8 +140,10 @@ public class NotiFragment extends Fragment implements View.OnClickListener{
                     map.put("right", df.format((sp.getInt("IELTS_POSITION",0)+1)*100.0/7930)+"%");
                     break;
                 case 4:
-                    MeDAO meDAO=new MeDAO(getContext());
-                    int count = (int)meDAO.getCount();
+//                    MeDAO meDAO=new MeDAO(getContext());
+//                    int count = (int)meDAO.getCount();
+                    NotiDao notiDao = new NotiDao(getContext());
+                    int count = (int) notiDao.getCount();
                     if (count!=0){
                         map.put("left", (sp.getInt("ME_POSITION",0)+1)+"/"+count);
                         map.put("right", df.format((sp.getInt("ME_POSITION",0)+1)*100.0/count)+"%");
