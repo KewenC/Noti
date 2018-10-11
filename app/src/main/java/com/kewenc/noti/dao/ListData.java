@@ -20,15 +20,15 @@ import java.util.Map;
  */
 
 public class ListData {
-    private static SQLiteDatabase database;
+//    private static SQLiteDatabase database;
     public static ArrayList<Map<String, Object>> list;
     public static OverrideSimpleAdapter simpleAdapter;
     public static int array_id[];
     public static String array_word[];
     public static String array_mark[];
     public static String array_translates[];
-    private static DataBaseOpenHelper helper;//创建DBOpenHelper对象
-    private static SQLiteDatabase db;//SQLiteDatabase对象
+//    private static DataBaseOpenHelper helper;//创建DBOpenHelper对象
+//    private static SQLiteDatabase db;//SQLiteDatabase对象
 
     /**
      * 获得listview数据
@@ -36,31 +36,35 @@ public class ListData {
      * @return
      */
     private static void DoData(int flag,Context context){
+        NotiDao notiDao = new NotiDao(context);
+
         list = new ArrayList<Map<String, Object>>();
-        Cursor cur=null;
+        Cursor cur = null;
         SharedPreferences sp=context.getSharedPreferences("NOTI_DATA", Activity.MODE_PRIVATE);
-        switch (flag){
-            case 0:
-                database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.CET4_DBNAME, null);
-                cur = database.rawQuery("select id,word,marken,markus,translate from cet4 where id=id", null);
-                break;
-            case 1:
-                database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.CET6_DBNAME, null);
-                cur = database.rawQuery("select id,word,marken,markus,translate from cet6 where id=id", null);
-                break;
-            case 2:
-                database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.TEEFPS_DBNAME, null);
-                cur = database.rawQuery("select id,word,marken,markus,translate from teefps where id=id", null);
-                break;
-            case 3:
-                database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.IELTS_DBNAME, null);
-                cur = database.rawQuery("select id,word,marken,markus,translate from ielts where id=id", null);
-                break;
-            case 4:
-                helper=new DataBaseOpenHelper(context);//初始化DBOpenHelper对象
-                db=helper.getWritableDatabase();//初始化SQLiteDatabase对象
-                cur =db.rawQuery("select id,word,marken,markus,translate from tb_me where id=id", null);//存储到Cursor类中
-        }
+        cur = notiDao.getCursor(flag);
+
+//        switch (flag){
+//            case 0:
+//                database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.CET4_DBNAME, null);
+//                cur = database.rawQuery("select id,word,marken,markus,translate from cet4 where id=id", null);
+//                break;
+//            case 1:
+//                database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.CET6_DBNAME, null);
+//                cur = database.rawQuery("select id,word,marken,markus,translate from cet6 where id=id", null);
+//                break;
+//            case 2:
+//                database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.TEEFPS_DBNAME, null);
+//                cur = database.rawQuery("select id,word,marken,markus,translate from teefps where id=id", null);
+//                break;
+//            case 3:
+//                database = SQLiteDatabase.openOrCreateDatabase(DataBaseManager.DB_PATH + "/" + DataBaseManager.IELTS_DBNAME, null);
+//                cur = database.rawQuery("select id,word,marken,markus,translate from ielts where id=id", null);
+//                break;
+//            case 4:
+//                helper=new DataBaseOpenHelper(context);//初始化DBOpenHelper对象
+//                db=helper.getWritableDatabase();//初始化SQLiteDatabase对象
+//                cur =db.rawQuery("select id,word,marken,markus,translate from tb_me where id=id", null);//存储到Cursor类中
+//        }
             long count=cur.getCount();
             Map<String, Object> map;
             int index=0;
@@ -123,23 +127,25 @@ public class ListData {
                     } while (cur.moveToNext());
                 }
                 cur.close();
-                if (database!=null){
-                    database.close();
-                }
-                if (db!=null){
-                    db.close();
-                }
+                notiDao.closeDb();
+//                if (database!=null){
+//                    database.close();
+//                }
+//                if (db!=null){
+//                    db.close();
+//                }
 //                return list;
             } else {
                 if (cur!=null){
                     cur.close();
                 }
-                if (database!=null){
-                    database.close();
-                }
-                if (db!=null){
-                    db.close();
-                }
+                notiDao.closeDb();
+//                if (database!=null){
+//                    database.close();
+//                }
+//                if (db!=null){
+//                    db.close();
+//                }
 //                return null;
             }
         }
