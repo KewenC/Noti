@@ -38,6 +38,7 @@ public class NotiDao {
     }
 
     public Cursor getCursor(int flag){
+        return db.rawQuery("select id,word,marken,markus,translate,markenpath,markuspath,from "+TABLES_NAME[flag]+" where id=id", null);
         return db.query(TABLES_NAME[flag], null, "id=?", null, null, null, null);
     }
 
