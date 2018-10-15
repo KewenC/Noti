@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.util.Log;
 
 import com.kewenc.noti.model.CollectModel;
 import com.kewenc.noti.model.DefaultModel;
@@ -38,8 +39,8 @@ public class NotiDao {
     }
 
     public Cursor getCursor(int flag){
-        return db.rawQuery("select id,word,marken,markus,translate,markenpath,markuspath,from "+TABLES_NAME[flag]+" where id=id", null);
-        return db.query(TABLES_NAME[flag], null, "id=?", null, null, null, null);
+//        return db.rawQuery("select id,word,marken,markus,translate,markenpath,markuspath,sort,collect from "+TABLES_NAME[flag]+" where id=id", null);
+        return db.query(TABLES_NAME[flag], null, "id=id", null, null, null, null);
     }
 
     public void closeDb(){
