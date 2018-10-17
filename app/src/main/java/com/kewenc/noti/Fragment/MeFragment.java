@@ -24,6 +24,7 @@ import com.kewenc.noti.activity.AmendActivity;
 import com.kewenc.noti.activity.SingleActivity;
 import com.kewenc.noti.dao.ListData;
 import com.kewenc.noti.dao.MeDAO;
+import com.kewenc.noti.dao.NotiDao;
 import com.kewenc.noti.dao.OverListView;
 import com.kewenc.noti.dao.OverOnTouchListener;
 import com.kewenc.noti.dao.OverrideSimpleAdapter;
@@ -59,14 +60,22 @@ public class MeFragment extends Fragment {
         list = new ArrayList<Map<String, Object>>();
         lv_me=(OverListView)view.findViewById(R.id.lv_me);
         textView= (TextView) view.findViewById(R.id.tv_empty);
-        MeDAO meDAO=new MeDAO(getContext());
-        if (meDAO.getCount()==0){
+        NotiDao notiDao = new NotiDao(getContext());
+        if (notiDao.getCount()==0){
             textView.setText("再次点击导航栏“我的”\n创建专属的词库吧！");
         }else {
-            if (meDAO.getCount()>99){//数据库条数达到100个显示加载提示
+            if (notiDao.getCount()>99){//数据库条数达到100个显示加载提示
                 textView.setText("加载中..");
             }
         }
+//        MeDAO meDAO=new MeDAO(getContext());
+//        if (meDAO.getCount()==0){
+//            textView.setText("再次点击导航栏“我的”\n创建专属的词库吧！");
+//        }else {
+//            if (meDAO.getCount()>99){//数据库条数达到100个显示加载提示
+//                textView.setText("加载中..");
+//            }
+//        }
         lv_me.setEmptyView(textView);
         loadData=new LoadData();
         loadData.execute(4);
