@@ -39,7 +39,7 @@ public class NotiDao {
     }
 
     public Cursor getCursor(int flag){
-//        return db.rawQuery("select id,word,marken,markus,translate,markenpath,markuspath,sort,collect from "+TABLES_NAME[flag]+" where id=id", null);
+//        return db .rawQuery("select id,word,marken,markus,translate,markenpath,markuspath,sort,collect from "+TABLES_NAME[flag]+" where id=id", null);
         return db.query(TABLES_NAME[flag], null, "id=id", null, null, null, null);
     }
 
@@ -176,6 +176,23 @@ public class NotiDao {
             if (db != null)
                 db.close();
             return defaultModels;
+        }
+    }
+
+    public void queryByWordOrTranlate(String content, int flag){
+        Cursor c = db.query(TABLES_NAME[flag], new String[]{"id", "word", "translate"},
+                "word=?", new String[]{content},null, null, null);
+        while (c.moveToNext()){
+            String id = c.getString(c.getColumnIndex("id"));
+            String word = c.getString(c.getColumnIndex("word"));
+            String translate = c.getString(c.getColumnIndex("translate"));
+            Log.e("TAGF", id+"_"+word+"_"+translate);
+        }
+        if (c != null){
+            c.close();
+        }
+        if (db != null && flag == 4){
+            db.close();
         }
     }
 

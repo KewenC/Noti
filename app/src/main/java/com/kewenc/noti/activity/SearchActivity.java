@@ -3,6 +3,7 @@ package com.kewenc.noti.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_search);
         etWord = findViewById(R.id.etWord);
         imgSearch = findViewById(R.id.imgSearch);
+        imgSearch.setOnClickListener(this);
     }
 
     @Override
@@ -29,10 +31,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.imgSearch:
                 String word = etWord.getText().toString();
                 if (word.equals("")) return;
-
-
                 NotiDao notiDao = new NotiDao(this);
-
+                notiDao.queryByWordOrTranlate(word,0);
+                notiDao.queryByWordOrTranlate(word,1);
+                notiDao.queryByWordOrTranlate(word,2);
+                notiDao.queryByWordOrTranlate(word,3);
+                notiDao.queryByWordOrTranlate(word,4);
                 break;
         }
     }
