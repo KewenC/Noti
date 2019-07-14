@@ -5,10 +5,10 @@
   -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@color/colorPrimaryDark"></item>
+    <item android:drawable="@color/colorPrimaryDark"/>
     <item >
         <bitmap
             android:gravity="center"
-            android:src="@drawable/mysplash"></bitmap>
+            android:src="@drawable/my_splash"/>
     </item>
 </layer-list>

@@ -36,6 +36,7 @@ public class NotiDao {
 
     public NotiDao(Context context){
         db = SQLiteDatabase.openOrCreateDatabase("/data" + Environment.getDataDirectory().getAbsolutePath() + "/"+ context.getPackageName() +"/"+"databases"+"/"+NOTI_DBNAME, null);
+//        SQLiteDatabase.openDatabase()
     }
 
     public Cursor getCursor(int flag){
