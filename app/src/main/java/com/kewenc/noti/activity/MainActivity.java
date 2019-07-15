@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -29,11 +30,14 @@ import com.kewenc.noti.Fragment.IeltsFragment;
 import com.kewenc.noti.Fragment.NotiFragment;
 import com.kewenc.noti.Fragment.TeefpsFragment;
 import com.kewenc.noti.R;
+import com.kewenc.noti.dao.DataBaseHelper;
 import com.kewenc.noti.dao.DataBaseManager;
 import com.kewenc.noti.Fragment.MeFragment;
 import com.kewenc.noti.Fragment.SettingsFragment;
 import com.kewenc.noti.dao.DataBaseOpenHelper;
 import com.tencent.stat.StatService;
+
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -54,19 +58,22 @@ public class MainActivity extends AppCompatActivity {
         //调用统计接口，触发MTA并上报数据
         StatService.trackCustomEvent(this, "onCreate", "");
         //初始化加载数据库
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                DataBaseManager dataBaseManager=new DataBaseManager(getApplicationContext());
-                dataBaseManager.openNativeDatabase();
-//                dataBaseManager.openCet4Database();
-//                dataBaseManager.openCet6Database();
-//                dataBaseManager.openTeefpsDatabase();
-//                dataBaseManager.openIeltsDatabase();
-//                DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(MainActivity.this);
-//                dataBaseOpenHelper.getWritableDatabase();
-            }
-        }).start();
+
+
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                DataBaseManager dataBaseManager=new DataBaseManager(getApplicationContext());
+//                dataBaseManager.openNativeDatabase();
+////                dataBaseManager.openCet4Database();
+////                dataBaseManager.openCet6Database();
+////                dataBaseManager.openTeefpsDatabase();
+////                dataBaseManager.openIeltsDatabase();
+////                DataBaseOpenHelper dataBaseOpenHelper = new DataBaseOpenHelper(MainActivity.this);
+////                dataBaseOpenHelper.getWritableDatabase();
+//            }
+//        }).start();
         cv_main = findViewById(R.id.cv_main);
         BottomNavigationBar btnBar = findViewById(R.id.bomnbar);
         SelectNavigation(0);//初始化导航栏

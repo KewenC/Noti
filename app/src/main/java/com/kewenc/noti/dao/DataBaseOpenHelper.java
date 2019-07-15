@@ -14,6 +14,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper{
     private static final int VESAION=3;
     private static final String DBNAME="noti.db";
 
+
     public DataBaseOpenHelper(Context context) {
         super(context, DBNAME, null, VESAION);
     }

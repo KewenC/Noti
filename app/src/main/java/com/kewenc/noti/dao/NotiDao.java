@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019.7 - Present by KewenC.
+ */
+
 package com.kewenc.noti.dao;
 
 import android.content.ContentValues;
