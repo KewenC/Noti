@@ -6,6 +6,7 @@ package com.kewenc.noti;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.kewenc.noti.dao.DataBaseHelper;
 
@@ -19,6 +20,7 @@ public class MyApplication extends Application {
         try {
             dataBaseHelper.createDataBase();
         } catch (IOException e) {
+            Log.e("TAGF","MyApplication_IOException");
             e.printStackTrace();
         }
         SQLiteDatabase dp = dataBaseHelper.openDataBase();

@@ -12,6 +12,8 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.kewenc.noti.BuildConfig;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,6 +52,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         } else {
             //调用这个方法可以创建空数据库，我们自己的数据可可以将其覆盖,并设置版本号（不设置数据升级是个坑）
             this.getWritableDatabase().setVersion(DATABASE_VERSION);
+            Log.e("TAGF","succeed2");
             try {
                 //覆盖
                 String outFileName = DATABASE_PATH + DATABASE_NAME;
@@ -72,18 +75,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     private boolean checkDataBase() {
-        SQLiteDatabase checkDB = null;
-        try {
-            String myPath = DATABASE_PATH + DATABASE_NAME;
-            Log.e("TAGF","checkDataBase_"+myPath);
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (checkDB != null) {
-            checkDB.close();
-        }
-        return checkDB != null;
+        String myPath = DATABASE_PATH + DATABASE_NAME;
+        File file = new File(myPath);
+        return file.exists();
+//        SQLiteDatabase checkDB = null;
+//        try {
+//            String myPath = DATABASE_PATH + DATABASE_NAME;
+//            Log.e("TAGF","checkDataBase_"+myPath);
+//            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+//        } catch (Exception e) {
+//            Log.e("TAGF","checkDataBase_Exception");
+//            e.printStackTrace();
+//        }
+//        if (checkDB != null) {
+//            checkDB.close();
+//        }
+//        return checkDB != null;
     }
 
     public SQLiteDatabase openDataBase() throws SQLException {
