@@ -16,13 +16,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
-        try {
-            dataBaseHelper.createDataBase();
-        } catch (IOException e) {
-            Log.e("TAGF","MyApplication_IOException");
-            e.printStackTrace();
-        }
-        SQLiteDatabase dp = dataBaseHelper.openDataBase();
+
     }
 }

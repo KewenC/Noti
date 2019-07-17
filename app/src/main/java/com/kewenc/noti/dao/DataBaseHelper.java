@@ -21,12 +21,9 @@ import java.io.InputStream;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "noti.db";
-    private static final int DATABASE_VERSION = 3;
-//    public static final String DATABASE_PATH = "/data/data/" + getPackageName() + "/databases/";
-//    public static final String DATABASE_PATH = "/data" + Environment.getDataDirectory().getAbsolutePath() + "/" + BuildConfig.APPLICATION_ID;
+    private static final int DATABASE_VERSION = 2;//必须大于等于2，因为onCreate永远不会执行，得保证首次安装应用onUpgrade执行在此数据库的基础上增加新表或字段等
     public static final String DATABASE_PATH = "/data" + Environment.getDataDirectory().getAbsolutePath() + "/"+ BuildConfig.APPLICATION_ID +"/"+"databases"+"/";
     private final Context context;
-    private SQLiteDatabase dp;
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,21 +37,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        Log.e("TAGF","DataBaseHelper_onUpgrade_oldVersion_"+oldVersion+"_"+newVersion);
     }
 
-    public void createDataBase() throws IOException {
-        boolean dbExist = checkDataBase();
-        Log.e("TAGF","dbExist_"+dbExist);
-        if (dbExist) {
-            //该数据库已经存在了
-//            Log.e("TAGF","该数据库已经存在了");
-        } else {
-            //调用这个方法可以创建空数据库，我们自己的数据可可以将其覆盖,并设置版本号（不设置数据升级是个坑）
-            this.getWritableDatabase().setVersion(DATABASE_VERSION);
-            Log.e("TAGF","succeed2");
+    public SQLiteDatabase createDataBase(){
+        String myPath = DATABASE_PATH + DATABASE_NAME;
+        File file = new File(myPath);
+        if (!file.exists()) {
             try {
-                //覆盖
                 String outFileName = DATABASE_PATH + DATABASE_NAME;
                 InputStream is = context.getAssets().open(DATABASE_NAME);
                 FileOutputStream fos = new FileOutputStream(outFileName);
@@ -66,44 +56,44 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 fos.flush();
                 fos.close();
                 is.close();
-                Log.e("TAGF","succeed");
             } catch (IOException e) {
-                Log.e("TAGF","IOException");
-                throw new Error("io error");
+                e.printStackTrace();
             }
         }
+        return getWritableDatabase();
     }
 
-    private boolean checkDataBase() {
-        String myPath = DATABASE_PATH + DATABASE_NAME;
-        File file = new File(myPath);
-        return file.exists();
-//        SQLiteDatabase checkDB = null;
-//        try {
-//            String myPath = DATABASE_PATH + DATABASE_NAME;
-//            Log.e("TAGF","checkDataBase_"+myPath);
-//            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-//        } catch (Exception e) {
-//            Log.e("TAGF","checkDataBase_Exception");
-//            e.printStackTrace();
-//        }
-//        if (checkDB != null) {
-//            checkDB.close();
-//        }
-//        return checkDB != null;
-    }
+//
+//    private boolean checkDataBase() {
+//        String myPath = DATABASE_PATH + DATABASE_NAME;
+//        File file = new File(myPath);
+//        return file.exists();
+////        SQLiteDatabase checkDB = null;
+////        try {
+////            String myPath = DATABASE_PATH + DATABASE_NAME;
+////            Log.e("TAGF","checkDataBase_"+myPath);
+////            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+////        } catch (Exception e) {
+////            Log.e("TAGF","checkDataBase_Exception");
+////            e.printStackTrace();
+////        }
+////        if (checkDB != null) {
+////            checkDB.close();
+////        }
+////        return checkDB != null;
+//    }
 
-    public SQLiteDatabase openDataBase() throws SQLException {
-        //打开数据库
-        String myPath = DATABASE_PATH + DATABASE_NAME;
-        dp = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-        return dp;
-    }
+//    public SQLiteDatabase openDataBase() throws SQLException {
+//        String myPath = DATABASE_PATH + DATABASE_NAME;
+////        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+//                db = SQLiteDatabase.openOrCreateDatabase(myPath, null);
+//        return db;
+//    }
 
-    @Override
-    public synchronized void close() {
-        if (dp != null)
-            dp.close();
-        super.close();
-    }
+//    @Override
+//    public synchronized void close() {
+//        if (db != null)
+//            db.close();
+//        super.close();
+//    }
 }

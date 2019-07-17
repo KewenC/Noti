@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
         //调用统计接口，触发MTA并上报数据
         StatService.trackCustomEvent(this, "onCreate", "");
         //初始化加载数据库
-
-
-
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {

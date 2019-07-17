@@ -39,8 +39,9 @@ public class NotiDao {
     private SQLiteDatabase db;
 
     public NotiDao(Context context){
-        db = SQLiteDatabase.openOrCreateDatabase("/data" + Environment.getDataDirectory().getAbsolutePath() + "/"+ context.getPackageName() +"/"+"databases"+"/"+NOTI_DBNAME, null);
-//        SQLiteDatabase.openDatabase()
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(context);
+        db = dataBaseHelper.createDataBase();
+//        db = SQLiteDatabase.openOrCreateDatabase("/data" + Environment.getDataDirectory().getAbsolutePath() + "/"+ context.getPackageName() +"/"+"databases"+"/"+NOTI_DBNAME, null);
     }
 
     public Cursor getCursor(int flag){
@@ -64,13 +65,13 @@ public class NotiDao {
      */
     public int insert(CollectModel collectModel){
         ContentValues values = new ContentValues();
-        values.put("name", collectModel.getWord());
-        values.put("name", collectModel.getMarken());
-        values.put("name", collectModel.getMarkus());
-        values.put("name", collectModel.getTranslate());
-        values.put("name", collectModel.getMarkenpath());
-        values.put("name", collectModel.getMarkuspath());
-        values.put("name", collectModel.getFlag());
+        values.put("word", collectModel.getWord());
+        values.put("marken", collectModel.getMarken());
+        values.put("markus", collectModel.getMarkus());
+        values.put("translate", collectModel.getTranslate());
+        values.put("markenpath", collectModel.getMarkenpath());
+        values.put("markuspath", collectModel.getMarkuspath());
+        values.put("flag", collectModel.getFlag());
         long id = db.insert(TABLE_NAME_COLLECT, "0", values);
         if (db != null)
             db.close();

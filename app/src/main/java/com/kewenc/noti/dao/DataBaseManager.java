@@ -13,7 +13,7 @@ import java.io.InputStream;
 /**
  * Created by KewenC on 2016/12/27.
  */
-
+@Deprecated
 public class DataBaseManager {
     private static final int BUFFER_SIZE = 400000;
     public static final String CET4_DBNAME = "cet4.db";// 保存的数据库文件名
