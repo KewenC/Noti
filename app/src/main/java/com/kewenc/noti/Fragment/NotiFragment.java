@@ -6,38 +6,31 @@
 package com.kewenc.noti.Fragment;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.kewenc.noti.R;
-import com.kewenc.noti.dao.MeDAO;
 import com.kewenc.noti.dao.NotiDao;
 import com.kewenc.noti.dao.OverListView;
 import com.kewenc.noti.dao.OverOnTouchListener;
-import com.kewenc.noti.receiver.AlarmReceiver;
 import com.kewenc.noti.service.NotificationService;
 import com.qq.e.ads.banner.ADSize;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
 
-import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -9,14 +9,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.kewenc.noti.Fragment.NotiFragment">
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:visibility="gone"
         android:id="@+id/abl0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_noti_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,9 +51,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
-    <android.support.v7.widget.CardView
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.cardview.widget.CardView
         android:id="@+id/cvCurrentData"
         android:layout_below="@+id/abl0"
         android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="n. 表示问候， 惊奇或唤起注意时的用语\nn. (Hello)人名；(法)埃洛\nint. 喂；哈罗"/>
-            <android.support.v7.widget.ButtonBarLayout
+            <androidx.appcompat.widget.ButtonBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -144,10 +144,10 @@
                     android:layout_height="wrap_content"
                     android:text="下一个"
                     android:textSize="10sp"/>
-            </android.support.v7.widget.ButtonBarLayout>
+            </androidx.appcompat.widget.ButtonBarLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.design.widget.CoordinatorLayout
+    </androidx.cardview.widget.CardView>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_below="@+id/cvCurrentData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -161,5 +161,5 @@
         android:divider="@null"
         android:fastScrollEnabled="true">
     </com.kewenc.noti.dao.OverListView>
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>

@@ -10,11 +10,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.kewenc.noti.activity.SingleActivity">
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/abl_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_single"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -25,8 +25,8 @@
                 android:layout_gravity="center"
                 android:textSize="16sp"
                 android:textColor="#ffffff"/>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
         android:layout_below="@+id/abl_single"
         android:id="@+id/adcontent"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="10sp"/>
-    <android.support.v7.widget.ButtonBarLayout
+    <androidx.appcompat.widget.ButtonBarLayout
         android:id="@+id/bbl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,5 +91,5 @@
             android:padding="8dp"
             android:textAllCaps="false"
             android:background="@drawable/touch"/>
-    </android.support.v7.widget.ButtonBarLayout>
+    </androidx.appcompat.widget.ButtonBarLayout>
 </RelativeLayout>

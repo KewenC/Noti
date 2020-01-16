@@ -5,11 +5,11 @@
     tools:context="com.kewenc.noti.Fragment.Cet4Fragment"
     android:background="#fff">
     <!-- TODO: Update blank fragment layout -->
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/abl_common"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -19,8 +19,8 @@
                 android:textColor="#fff"
                 android:layout_gravity="center"
                 android:textSize="16sp"/>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
     <TextView
         android:id="@+id/tv_loading"
         android:layout_width="match_parent"

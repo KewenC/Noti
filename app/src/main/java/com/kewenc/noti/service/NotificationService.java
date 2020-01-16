@@ -15,31 +15,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import android.widget.RemoteViews;
 
 import com.kewenc.noti.R;
 import com.kewenc.noti.activity.MainActivity;
-import com.kewenc.noti.dao.DataBaseManager;
-import com.kewenc.noti.dao.DataBaseOpenHelper;
 import com.kewenc.noti.dao.NotiDao;
 import com.kewenc.noti.receiver.AlarmReceiver;
-import com.kewenc.noti.util.DrawableUtil;
-
-import java.lang.reflect.Field;
 
 public class NotificationService extends Service {
     private SharedPreferences sp;

@@ -12,12 +12,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -30,14 +29,10 @@ import com.kewenc.noti.Fragment.IeltsFragment;
 import com.kewenc.noti.Fragment.NotiFragment;
 import com.kewenc.noti.Fragment.TeefpsFragment;
 import com.kewenc.noti.R;
-import com.kewenc.noti.dao.DataBaseHelper;
-import com.kewenc.noti.dao.DataBaseManager;
 import com.kewenc.noti.Fragment.MeFragment;
 import com.kewenc.noti.Fragment.SettingsFragment;
-import com.kewenc.noti.dao.DataBaseOpenHelper;
 import com.tencent.stat.StatService;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
